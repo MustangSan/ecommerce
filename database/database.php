@@ -49,15 +49,23 @@ class Database {
          //exit();
       }
       else{
+         //printf ("System status: %s\n", $this->connection_id->stat());
          return TRUE;
       }
    }
 
    public function close(){
       if (is_resource($this->connection_id) OR is_object($this->connection_id)){
-         $this->_close($this->connection_id);
+         $this->db_close($this->connection_id);
       }
+      //echo ("System status: %s\n");
+      //var_dump(get_object_vars($this->connection_id));
       $this->connection_id = FALSE;
+      
+      if(!$this->connection_id){
+         return TRUE;
+      }
+
    }
 
 }
