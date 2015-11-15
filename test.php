@@ -12,6 +12,7 @@ if($testConnection->connect()){
 } else
    echo "<p>DONT WORK connect!!</p>";
 
+/*
 $data = array( 'idAdministrador' => NULL,
                'email' => 'guilherme.raminho@gmail.com',
                'nome' => 'Guilherme Raminho',
@@ -22,6 +23,19 @@ if($testConnection->insert('administradores', $data)) {
    echo "<p>WORK!! insert</p>";
 } else
    echo "<p>DONT WORK!! insert</p>";
+//*/
+
+/*
+$data = array('email' => 'guilherme.raminho@gmail.com',
+               'nome' => 'Guilherme Raminho'
+               );
+echo "<br /><p>Delete from BD</p>";
+if($testConnection->delete("administradores",$data)) {
+   echo "<p>WORK!! delete</p>";
+} else
+   echo "<p>DONT WORK!! delete</p>";
+
+//*/
 
 
 echo "<br /><p>Closing connection</p>";

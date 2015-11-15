@@ -5,13 +5,18 @@
 */
 class Database {
 
+   //Configuracoes da conexao com BD
    var $host;
    var $username;
    var $password;
    var $dbname;
    var $port;
    var $socket;
+   
+   //ID da conexao
    var $connection_id = FALSE;
+
+   //var $where_cache;
 
    
    function __construct()
@@ -134,7 +139,41 @@ class Database {
       else {
          return FALSE;
       }
+   }
 
+   function where($where) {
+      if(isset($where) AND is_array($where)) {
+         foreach ($where as $key => $value) {
+            $conditions[] = $key . " = " . $this->escape($value);
+         }
+      }
+      return $conditions = " WHERE " . implode(" AND ", $conditions);
+   }
+
+   function db_delete($table, $where) {
+      $conditions = $this->where($where);
+      return "DELETE FROM ".$table.$conditions;
+   }
+
+   public function delete($table, $where) {
+      if(isset($table) AND isset($where) AND is_array($where)) {
+         $sql = $this->db_delete($table, $where);
+         if(isset($sql)) {
+            if (mysqli_query($this->connection_id, $sql)) {
+                echo "New record deleted successfully";
+                return TRUE;
+            } else {
+                echo "Error: " . $sql . "<br />" . mysqli_error($this->connection_id);
+                return FALSE;
+            }
+         }
+         else{
+            return FALSE;
+         }
+      }
+      else {
+         return FALSE;
+      }
    }
 
 }
