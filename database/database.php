@@ -104,6 +104,24 @@ class Database {
       return $str;
    }
 
+   function where($where) {
+      if(isset($where) AND is_array($where)) {
+         foreach ($where as $key => $value) {
+            $conditions[] = $key . " = " . $this->escape($value);
+         }
+      }
+      return $conditions = " WHERE " . implode(" AND ", $conditions);
+   }
+
+   function set($set) {
+      if(isset($set) AND is_array($set)) {
+         foreach ($set as $key => $value) {
+            $finalSet[] = $key . " = " . $this->escape($value);
+         }
+      }
+      return $finalSet = " SET " . implode(", ", $finalSet);
+   }
+
    function insert_string($table, $data) {
       $fields = array();
       $values = array();
@@ -125,7 +143,7 @@ class Database {
          $sql = $this->insert_string($table, $data);
          if(isset($sql)) {
             if (mysqli_query($this->connection_id, $sql)) {
-                //echo "New record created successfully";
+                echo "New record created successfully";
                 return TRUE;
             } else {
                 echo "Error: " . $sql . "<br />" . mysqli_error($this->connection_id);
@@ -141,13 +159,35 @@ class Database {
       }
    }
 
-   function where($where) {
-      if(isset($where) AND is_array($where)) {
-         foreach ($where as $key => $value) {
-            $conditions[] = $key . " = " . $this->escape($value);
+   function db_update($table, $set, $conditions) {
+      return "UPDATE " . $table . " " . $set . $conditions;
+   }
+
+   function update_string($table, $data, $where) {
+      $set = $this->set($data);
+      $conditions = $this->where($where);
+      return $this->db_update($table, $set, $conditions);
+   }
+
+   public function update($table, $data, $where) {
+      if(isset($table) AND isset($where) AND is_array($where)) {
+         $sql = $this->update_string($table, $data, $where);
+         if(isset($sql)) {
+            if (mysqli_query($this->connection_id, $sql)) {
+                echo "New record updated successfully";
+                return TRUE;
+            } else {
+                echo "Error: " . $sql . "<br />" . mysqli_error($this->connection_id);
+                return FALSE;
+            }
+         }
+         else{
+            return FALSE;
          }
       }
-      return $conditions = " WHERE " . implode(" AND ", $conditions);
+      else {
+         return FALSE;
+      }
    }
 
    function db_delete($table, $where) {

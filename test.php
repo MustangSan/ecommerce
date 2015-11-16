@@ -26,6 +26,21 @@ if($testConnection->insert('administradores', $data)) {
 //*/
 
 /*
+$data = array( 'email' => 'mustang@gmail.com',
+               'nome' => 'Mustang San'
+               );
+
+$where = array('email' => 'guilherme.raminho@gmail.com',
+               'nome' => 'Guilherme Raminho'
+               );
+echo "<br /><p>Update from BD</p>";
+if($testConnection->update("administradores", $data, $where)) {
+   echo "<p>WORK!! update</p>";
+} else
+   echo "<p>DONT WORK!! update</p>";
+//*/
+
+/*
 $data = array('email' => 'guilherme.raminho@gmail.com',
                'nome' => 'Guilherme Raminho'
                );
