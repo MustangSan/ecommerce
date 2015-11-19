@@ -19,6 +19,9 @@ class Database {
    //Guarda as condições SELECT
    private $select_cache = NULL;
 
+   //Guarda as condições FROM
+   private $from_cache = NULL;
+
    //Guarda as condições WHERE
    private $where_cache = NULL;
 
@@ -335,6 +338,12 @@ class Database {
       }
    }
 
+   public function from($table) {
+      if(isset($table)){
+         $this->from_cache = $table;
+      }
+   }
+
    /*
     * Função que gera o codigo que será utilizado para selecionar os dados no Banco de Dados
     */
@@ -367,7 +376,10 @@ class Database {
    /*
     * Função que seleciona os dados no Banco de Dados
     */
-   public function get($table) {
+   public function get($table = NULL) {
+      if(is_null($table)) {
+         $table = $this->from_cache;
+      }
       if(isset($table)) {
          $sql = $this->get_string($table);
          if(isset($sql)) {

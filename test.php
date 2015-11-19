@@ -21,8 +21,7 @@ $testConnection->order_by('senha', 'ASC');
 echo "<p>{$testConnection->order_by_return()}</p>";
 //*/
 
-   //Guarda as condições FROM
-//   private $from_cache = NULL;
+
 
 echo "<br /><p>Get from BD</p>";
 //$testConnection->where('email','mustang@gmail.com');
@@ -30,6 +29,8 @@ echo "<br /><p>Get from BD</p>";
 echo "<p>Result: </p>";
 //$testConnection->order_by('idAdministrador', "DESC");
 //$testConnection->select('nome, senha, email');
+//$testConnection->from('administradores');
+//$result = $testConnection->get();
 $result = $testConnection->get('administradores');
 //print_r($result);
 //echo "<br />";
