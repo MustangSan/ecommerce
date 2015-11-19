@@ -6,22 +6,26 @@
 class Database {
 
    //Configuracoes da conexao com BD
-   var $host;
-   var $username;
-   var $password;
-   var $dbname;
-   var $port;
-   var $socket;
+   private $host;
+   private $username;
+   private $password;
+   private $dbname;
+   private $port;
+   private $socket;
    
    //ID da conexao
-   var $connection_id = FALSE;
+   private $connection_id = FALSE;
 
-   //var $where_cache;
-
+   //Guarda as condições WHERE
+   private $where_cache = NULL;
    
-   function __construct()
-   {
-      include_once ("database/config.php");
+   //--------------------------------------------------------------------------------------------------
+      
+   /*
+    * Construtor Padrão
+    */
+   function __construct() {
+      include ("database/config.php");
       $this->host = $db_config["host"];
       $this->username = $db_config["username"];
       $this->password = $db_config["password"];
@@ -30,7 +34,12 @@ class Database {
       $this->socket = $db_config["socket"];
    }
 
-   function db_connect() {
+   //--------------------------------------------------------------------------------------------------
+
+   /*
+    * Abre conexão com o Banco de Dados
+    */
+   private function db_connect() {
       if ($this->port != NULL)
       {
          return @mysqli_connect($this->host, $this->username, $this->password, $this->dbname, $this->port);
@@ -39,10 +48,6 @@ class Database {
       {
          return @mysqli_connect($this->host, $this->username, $this->password, $this->dbname);
       }
-   }
-
-   function db_close($conn_id) {
-      @mysqli_close($conn_id);
    }
 
    public function connect(){
@@ -60,6 +65,15 @@ class Database {
       }
    }
 
+   //--------------------------------------------------------------------------------------------------
+
+   /*
+    * Fecha conexão com o Banco de Dados
+    */
+   private function db_close($conn_id) {
+      @mysqli_close($conn_id);
+   }
+
    public function close() {
       if (is_resource($this->connection_id) OR is_object($this->connection_id)){
          $this->db_close($this->connection_id);
@@ -73,24 +87,29 @@ class Database {
       } else {
          return FALSE;
       }
-
    }
 
-   function escape_str($str, $like = FALSE) {
+   //--------------------------------------------------------------------------------------------------
+
+   /*
+    * Escapa a string de forma que possa ser inserida no Banco de Dados
+    * com a formatação correta
+    */
+   private function escape_str($str, $like = FALSE) {
       if (is_array($str)) {
          foreach ($str as $key => $val) {
             $str[$key] = $this->escape_str($val, $like);
          }
-
          return $str;
       }
-
       $str = mysqli_real_escape_string($this->connection_id, $str);
-
       return $str;
    }
 
-   function escape($str) {
+   /*
+    * Escapa a string para um dos tipos de valores, se for string chama a função escape_str
+    */
+   private function escape($str) {
       if (is_string($str)) {
          $str = "'".$this->escape_str($str)."'";
       }
@@ -100,29 +119,22 @@ class Database {
       elseif (is_null($str)) {
          $str = 'NULL';
       }
-
       return $str;
    }
 
-   function where($where) {
-      if(isset($where) AND is_array($where)) {
-         foreach ($where as $key => $value) {
-            $conditions[] = $key . " = " . $this->escape($value);
-         }
-      }
-      return $conditions = " WHERE " . implode(" AND ", $conditions);
+   //--------------------------------------------------------------------------------------------------
+
+   /*
+    * Função que gera o codigo que será utilizado para adicionar os dados no Banco de Dados
+    */
+   private function db_insert($table, $keys, $values){
+      return "INSERT INTO ".$table." (".implode(', ', $keys).") VALUES (".implode(', ', $values).")";
    }
 
-   function set($set) {
-      if(isset($set) AND is_array($set)) {
-         foreach ($set as $key => $value) {
-            $finalSet[] = $key . " = " . $this->escape($value);
-         }
-      }
-      return $finalSet = " SET " . implode(", ", $finalSet);
-   }
-
-   function insert_string($table, $data) {
+   /*
+    * Função que arruma os valores e as colunas onde seram inseridos
+    */
+   private function insert_string($table, $data) {
       $fields = array();
       $values = array();
 
@@ -134,10 +146,9 @@ class Database {
       return $this->db_insert($table, $fields, $values);
    }
 
-   function db_insert($table, $keys, $values){
-      return "INSERT INTO ".$table." (".implode(', ', $keys).") VALUES (".implode(', ', $values).")";
-   }
-
+   /*
+    * Função que insere os dados no Banco de Dados
+    */
    public function insert($table, $data){
       if(isset($table) AND isset($data)){
          $sql = $this->insert_string($table, $data);
@@ -159,19 +170,85 @@ class Database {
       }
    }
 
-   function db_update($table, $set, $conditions) {
-      return "UPDATE " . $table . " " . $set . $conditions;
+   //--------------------------------------------------------------------------------------------------
+
+   /*
+    * Função para determir a condição AND WHERE
+    */
+   public function where($where, $value = NULL) {
+      if(isset($where) AND is_array($where)) {
+         foreach ($where as $key => $value) {
+            $conditions[] = $key . " = " . $this->escape($value);
+         }
+         $this->where_cache = implode(" AND ", $conditions);
+      }
+      elseif(isset($where) AND isset($value)){
+            if($this->where_cache == NULL){
+               $this->where_cache = $where . " = " . $this->escape($value);
+            }
+            else{
+               $this->where_cache .= " AND " . $where . " = " . $this->escape($value);
+            }
+      }
    }
 
-   function update_string($table, $data, $where) {
+   /*
+    * Função para determir a condição OR WHERE
+    */
+   public function or_where($where, $value = NULL) {
+      if(isset($where) AND is_array($where)) {
+         foreach ($where as $key => $value) {
+            $conditions[] = $key . " = " . $this->escape($value);
+         }
+         $this->where_cache = implode(" OR ", $conditions);
+      }
+      elseif(isset($where) AND isset($value)){
+            if($this->where_cache == NULL){
+               $this->where_cache = $where . " = " . $this->escape($value);
+            }
+            else{
+               $this->where_cache .= " OR " . $where . " = " . $this->escape($value);
+            }
+      }
+   }
+
+   //--------------------------------------------------------------------------------------------------
+
+   /*
+    * Função para determinar a logica SET para o UPDATE(coluna = valor)
+    */
+   private function set($set) {
+      if(isset($set) AND is_array($set)) {
+         foreach ($set as $key => $value) {
+            $finalSet[] = $key . " = " . $this->escape($value);
+         }
+      }
+      return $finalSet = " SET " . implode(", ", $finalSet);
+   }
+
+   /*
+    * Função que gera o codigo que será utilizado para atualizar os dados no Banco de Dados
+    */
+   private function db_update($table, $set, $conditions) {
+      return "UPDATE " . $table . $set . $conditions;
+   }
+
+   /*
+    * Função que arruma os valores e as colunas onde seram atualizados de acordo com as condições determinadas
+    */
+   private function update_string($table, $data) {
       $set = $this->set($data);
-      $conditions = $this->where($where);
+      $conditions = " WHERE " . $this->where_cache;
+      $this->where_cache = NULL;
       return $this->db_update($table, $set, $conditions);
    }
 
-   public function update($table, $data, $where) {
-      if(isset($table) AND isset($where) AND is_array($where)) {
-         $sql = $this->update_string($table, $data, $where);
+   /*
+    * Função que atualiza os dados no Banco de Dados
+    */
+   public function update($table, $data) {
+      if(isset($table) AND isset($data) AND is_array($data)) {
+         $sql = $this->update_string($table, $data);
          if(isset($sql)) {
             if (mysqli_query($this->connection_id, $sql)) {
                 echo "New record updated successfully";
@@ -190,14 +267,23 @@ class Database {
       }
    }
 
-   function db_delete($table, $where) {
-      $conditions = $this->where($where);
-      return "DELETE FROM ".$table.$conditions;
+   //--------------------------------------------------------------------------------------------------
+
+   /*
+    * Função que gera o codigo que será utilizado para atualizar os dados no Banco de Dados
+    */
+   private function db_delete($table) {
+      $conditions = " WHERE " . $this->where_cache;
+      $this->where_cache = NULL;
+      return "DELETE FROM " . $table . $conditions;
    }
 
-   public function delete($table, $where) {
-      if(isset($table) AND isset($where) AND is_array($where)) {
-         $sql = $this->db_delete($table, $where);
+   /*
+    * Função que remove os dados no Banco de Dados
+    */
+   public function delete($table) {
+      if(isset($table)) {
+         $sql = $this->db_delete($table);
          if(isset($sql)) {
             if (mysqli_query($this->connection_id, $sql)) {
                 echo "New record deleted successfully";
@@ -216,6 +302,19 @@ class Database {
       }
    }
 
+   //--------------------------------------------------------------------------------------------------
+
 }
 
+
+
+
+   /*
+   //DEBUG
+   public function where_return(){
+      $result = $this->where_cache;
+      $this->where_cache = NULL;
+      return $result;
+   }
+   //*/
 ?>
