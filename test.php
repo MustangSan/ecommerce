@@ -12,6 +12,51 @@ if($testConnection->connect()){
 } else
    echo "<p>DONT WORK connect!!</p>";
 
+
+/*
+echo "<br /><p>Test ORDER BY</p>";
+$testConnection->order_by('email');
+$testConnection->order_by('nome', 'DESC');
+$testConnection->order_by('senha', 'ASC');
+echo "<p>{$testConnection->order_by_return()}</p>";
+//*/
+
+   //Guarda as condições FROM
+//   private $from_cache = NULL;
+
+echo "<br /><p>Get from BD</p>";
+//$testConnection->where('email','mustang@gmail.com');
+//$testConnection->where('nome','Mustang San');
+echo "<p>Result: </p>";
+//$testConnection->order_by('idAdministrador', "DESC");
+//$testConnection->select('nome, senha, email');
+$result = $testConnection->get('administradores');
+//print_r($result);
+//echo "<br />";
+
+if(is_array($result)) {
+   echo "<table border=1 cellspacing=0 cellpadding=4>
+            <tr>
+               <th>ID</th>
+               <th>Email</th>
+               <th>Senha</th>
+               <th>Nome</th>
+            </tr>";
+   //echo "<p>WORK!! get</p>";
+   foreach ($result as $row) {
+      echo "<tr>";
+      echo "<td>{$row->idAdministrador}</td>";
+      echo "<td>{$row->email}</td>";
+      echo "<td>{$row->senha}</td>";
+      echo "<td>{$row->nome}</td>";
+      echo "</tr>";
+   }
+   echo "</table>";
+} else
+   echo "<p>DONT WORK!! get</p>";
+//*/
+
+
 /*
 echo "<br /><p>Insert into BD</p>";
 $data = array( 'idAdministrador' => NULL,

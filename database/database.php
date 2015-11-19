@@ -16,11 +16,17 @@ class Database {
    //ID da conexao
    private $connection_id = FALSE;
 
+   //Guarda as condições SELECT
+   private $select_cache = NULL;
+
    //Guarda as condições WHERE
    private $where_cache = NULL;
+
+   //Guarda as condições ORDER BY
+   private $order_by_cache = NULL;
    
    //--------------------------------------------------------------------------------------------------
-      
+
    /*
     * Construtor Padrão
     */
@@ -183,7 +189,7 @@ class Database {
          $this->where_cache = implode(" AND ", $conditions);
       }
       elseif(isset($where) AND isset($value)){
-            if($this->where_cache == NULL){
+            if(is_null($this->where_cache)){
                $this->where_cache = $where . " = " . $this->escape($value);
             }
             else{
@@ -203,12 +209,26 @@ class Database {
          $this->where_cache = implode(" OR ", $conditions);
       }
       elseif(isset($where) AND isset($value)){
-            if($this->where_cache == NULL){
+            if(is_null($this->where_cache)){
                $this->where_cache = $where . " = " . $this->escape($value);
             }
             else{
                $this->where_cache .= " OR " . $where . " = " . $this->escape($value);
             }
+      }
+   }
+
+   /*
+    * Função para determir a condição ORDER BY
+    */
+   public function order_by($field, $direction = " ASC") {
+      if(isset($field) AND isset($direction)){
+         if(is_null($this->order_by_cache)){
+            $this->order_by_cache = $field . " " . $direction;
+         }
+         else{
+            $this->order_by_cache .= ", " . $field . " " . $direction;
+         }
       }
    }
 
@@ -304,17 +324,95 @@ class Database {
 
    //--------------------------------------------------------------------------------------------------
 
-}
-
-
-
+   /*
+    * Função para selecionar as colunas que serão selecionadas para exibir valor
+    */
+   public function select($column) {
+      if(isset($column) AND is_string($column)){
+         if(is_null($this->select_cache)){
+            $this->select_cache = $column;
+         }
+      }
+   }
 
    /*
-   //DEBUG
+    * Função que gera o codigo que será utilizado para selecionar os dados no Banco de Dados
+    */
+   private function db_get($table, $select, $conditions, $order_by) {
+      return "SELECT  " . $select . " FROM " . $table . $conditions . $order_by;
+   }
+
+   /*
+    * Função que arruma os valores e as colunas que seram selecionados de acordo com as condições determinadas
+    */
+   private function get_string($table) {
+      $select = "*";
+      $conditions = "";
+      $order_by = "";
+      if(!is_null($this->select_cache)){
+         $select = $this->select_cache;
+         $this->select_cache = NULL;
+      }
+      if(!is_null($this->where_cache)) {
+         $conditions = " WHERE " . $this->where_cache;
+         $this->where_cache = NULL;
+      }
+      if(!is_null($this->order_by_cache)){
+         $order_by = " ORDER BY " . $this->order_by_cache;
+         $this->order_by_cache = NULL;
+      }
+      return $this->db_get($table, $select, $conditions, $order_by);
+   }
+
+   /*
+    * Função que seleciona os dados no Banco de Dados
+    */
+   public function get($table) {
+      if(isset($table)) {
+         $sql = $this->get_string($table);
+         if(isset($sql)) {
+            //return $sql;
+            $result = mysqli_query($this->connection_id, $sql);
+            if (is_object($result)) {
+               $query = array();
+               while($row = mysqli_fetch_assoc($result))
+                  $query[] = (object)$row;
+               mysqli_free_result($result);
+               //echo "New record selected successfully";
+               return $query;
+            } else {
+                echo "Error: " . $sql . "<br />" . mysqli_error($this->connection_id);
+                return FALSE;
+            }//*/
+         }
+         else{
+            return FALSE;
+         }
+      }
+      else {
+         return FALSE;
+      }
+   }
+
+   //--------------------------------------------------------------------------------------------------
+
+
+   //------------------------------------------DEBUG---------------------------------------------------
+   public function order_by_return(){
+      $result = $this->order_by_cache;
+      $this->order_by_cache = NULL;
+      return $result;
+   }
+
+   
    public function where_return(){
       $result = $this->where_cache;
       $this->where_cache = NULL;
       return $result;
    }
    //*/
+
+   //--------------------------------------------------------------------------------------------------
+}
+
 ?>
