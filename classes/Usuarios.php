@@ -1,18 +1,18 @@
 /*
- *---------------------------------------------------------------
- * CLASSE USUARIOS
- *---------------------------------------------------------------
- */
+*---------------------------------------------------------------
+* CLASSE USUARIOS
+*---------------------------------------------------------------
+*/
 
 class Usuarios {
 
-	/**
-	 * Atributos
-	 */
+  /**
+  * Atributos
+  */
   private $idUsuario;
- 	private $nome;
- 	private $email;
- 	private $senha;
+  private $nome;
+  private $email;
+  private $senha;
   private $sexo;
   private $cpf;
   private $endereco;
@@ -23,79 +23,79 @@ class Usuarios {
   private $cep;
 
 
-	/**
-	 * Construtor
-	 */
-	public function __construct($idUsuario, $nome, $email, $senha, $sexo, $cpf, $endereco, $cidade, $estado, $telefone, $celular, $cep) {
-  $this->setIdUsuario($idUsuario);
-  $this->setNome($nome);
-  $this->setEmail($email);
-  $this->setSenha($senha);
-  $this->setSexo($sexo);
-  $this->setCpf($cpf);
-  $this->setEndereco($endereco);
-  $this->setCidade($cidade);
-  $this->setEstado($estado);
-  $this->setTelefone($telefone);
-  $this->setCelular($celular);
-  $this->setCep($cep);
-	}
+  /**
+  * Construtor
+  */
+  public function __construct($idUsuario, $nome, $email, $senha, $sexo, $cpf, $endereco, $cidade, $estado, $telefone, $celular, $cep) {
+    $this->setIdUsuario($idUsuario);
+    $this->setNome($nome);
+    $this->setEmail($email);
+    $this->setSenha($senha);
+    $this->setSexo($sexo);
+    $this->setCpf($cpf);
+    $this->setEndereco($endereco);
+    $this->setCidade($cidade);
+    $this->setEstado($estado);
+    $this->setTelefone($telefone);
+    $this->setCelular($celular);
+    $this->setCep($cep);
+  }
 
-	/**
-	 * Getters
-	 */
+  /**
+  * Getters
+  */
   public function getIdUsuario() {
- 		return $this->idUsuario;
- 	}
- 	public function getNome() {
- 		return $this->nome;
- 	}
- 	public function getEmail() {
- 		return $this->email;
- 	}
- 	public function getSenha() {
- 		return $this->senha;
- 	}
+    return $this->idUsuario;
+  }
+  public function getNome() {
+    return $this->nome;
+  }
+  public function getEmail() {
+    return $this->email;
+  }
+  public function getSenha() {
+    return $this->senha;
+  }
   public function getSexo() {
-		return $this->sexo;
-	}
-	public function getCpf() {
-		return $this->cpf;
-	}
-	public function getEndereco() {
-		return $this->endereco;
-	}
-	public function getCidade() {
-		return $this->cidade;
-	}
+    return $this->sexo;
+  }
+  public function getCpf() {
+    return $this->cpf;
+  }
+  public function getEndereco() {
+    return $this->endereco;
+  }
+  public function getCidade() {
+    return $this->cidade;
+  }
   public function getEstado() {
-		return $this->estado;
-	}
-	public function getTelefone() {
-		return $this->telefone;
-	}
-	public function getCelular() {
-		return $this->celular;
-	}
-	public function getCep() {
-		return $this->cep;
-	}
+    return $this->estado;
+  }
+  public function getTelefone() {
+    return $this->telefone;
+  }
+  public function getCelular() {
+    return $this->celular;
+  }
+  public function getCep() {
+    return $this->cep;
+  }
 
-	/**
-	 * Setters
-	 */
+  /**
+  * Setters
+  */
   public function setIdUsuario($newValue) {
- 		$this->idUsuario = $newValue;
- 	}
- 	public function setNome($newValue) {
- 		$this->nome = $newValue;
- 	}
- 	public function setEmail($newValue) {
- 		$this->email = $newValue;
- 	}
- 	public function setSenha($newValue) {
- 		$this->senha = $newValue;
- 	}
+    $this->idUsuario = $newValue;
+  }
+  public function setNome($newValue) {
+    $this->nome = $newValue;
+  }
+  public function setEmail($newValue) {
+    $this->email = $newValue;
+  }
+  public function setSenha($newValue) {
+    $this->senha = $newValue;
+  }
   public function setSexo($newValue) {
     $this->sexo = $newValue;
   }
