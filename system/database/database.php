@@ -34,7 +34,7 @@ class Database {
     * Construtor Padrão
     */
    function __construct() {
-      include ("database/config.php");
+      include ("system/database/config.php");
       $this->host = $db_config["host"];
       $this->username = $db_config["username"];
       $this->password = $db_config["password"];

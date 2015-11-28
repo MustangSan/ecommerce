@@ -2,7 +2,7 @@
 <body>
 
 <?php
-include_once ("database/database.php");
+include_once ("system/database/database.php");
 
 $testConnection = new Database();
 
