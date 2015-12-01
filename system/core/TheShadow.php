@@ -1,6 +1,6 @@
 <?php
 
-   echo "In The Shadow we are!";
+   //echo "In The Shadow we are!";
 
    function chk_array ( $array, $key ) {
       // Verifica se a chave existe no array
@@ -11,15 +11,19 @@
       return NULL;
    }
 
-   function __autoload($class_name) {
-      $file = BASEPATH . '/core/' . $class_name . 'Class.php';
+   /*function __autoload($class_name) {
+      $file = APPPATH . '/controllers/' . $class_name . '.php';
 
       if ( ! file_exists( $file ) ) {
-         echo "dont Exist";
-         //require_once ABSPATH . '/includes/404.php';
+         //echo "dont Exist";
+         require_once APPPATH . 'views/404.php';
          return;
       }
       require_once $file;
-   }
+   }*/
 
-   $theS = new TheShadow();
+   require_once BASEPATH . 'core/TheShadowClass.php';
+   require_once BASEPATH . 'core/Controller.php';
+   require_once BASEPATH . 'core/Model.php';
+
+   $theShadow = new TheShadow();

@@ -19,4 +19,3 @@ $db_config["socket"] = NULL;
 /* End of file database.php */
 /* Location: ./database/config.php */
 
-?>

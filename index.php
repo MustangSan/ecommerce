@@ -34,6 +34,11 @@
       exit("Sua pasta do sistema não existe");
    }
 
+   $url = trim($_SERVER['REQUEST_URI'], "/");
+   $url = explode("/", $url);
+   $baseURL = "http://" . $_SERVER['SERVER_NAME'] . "/" . $url[0] . "/";
+   //print_r($baseURL);
+
    /*
     *---------------------------------------------------------------
     * CONSTANTE UTILIZADAS
@@ -41,6 +46,9 @@
     * Definição das constantes que serão utilizadas no sitema
     * para facilitar a vida
     */
+
+   //URL base do site
+   define('BASEURL', $baseURL);
 
    //Nome deste arquivo
    define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
@@ -55,7 +63,7 @@
    define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
 
    // Caminho para a raiz
-   define( 'ABSPATH', dirname( __FILE__ ) );
+   define( 'ABSPATH', str_replace("\\", "/", dirname( __FILE__ )).'/');
 
 
    /*
@@ -79,13 +87,13 @@
     * DEBUG
     */
    //echo "system_path rtrim: " . $system_path . "<br />";
+   //echo BASEURL . "<br />";
    //echo SELF . "<br />";
    //echo 'BASEPATH '.BASEPATH . "<br />";
    //echo 'FCPATH '.FCPATH . "<br />";
    //echo 'SYSDIR '.SYSDIR . "<br />";
    //echo 'APPPATH ' . APPPATH . "<br />";
    //echo 'ABSPATH ' . ABSPATH . "<br / >";
-
 
 /*
  * --------------------------------------------------------------------
@@ -95,4 +103,3 @@
  */
 require_once BASEPATH.'core/TheShadow.php';
 
-?>

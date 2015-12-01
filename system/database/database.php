@@ -1,8 +1,12 @@
 <?php
 
-/**
-* Classe de conexão ao Banco de Dados
-*/
+/*
+ *---------------------------------------------------------------
+ * DATABASE
+ *---------------------------------------------------------------
+ * Classe de conexão ao banco de dados
+ */
+
 class Database {
 
    //Configuracoes da conexao com BD
@@ -34,7 +38,7 @@ class Database {
     * Construtor Padrão
     */
    function __construct() {
-      include ("system/database/config.php");
+      include (BASEPATH."database/config.php");
       $this->host = $db_config["host"];
       $this->username = $db_config["username"];
       $this->password = $db_config["password"];
@@ -163,7 +167,7 @@ class Database {
          $sql = $this->insert_string($table, $data);
          if(isset($sql)) {
             if (mysqli_query($this->connection_id, $sql)) {
-                echo "New record created successfully";
+                //echo "New record created successfully";
                 return TRUE;
             } else {
                 echo "Error: " . $sql . "<br />" . mysqli_error($this->connection_id);
@@ -274,7 +278,7 @@ class Database {
          $sql = $this->update_string($table, $data);
          if(isset($sql)) {
             if (mysqli_query($this->connection_id, $sql)) {
-                echo "New record updated successfully";
+                //echo "New record updated successfully";
                 return TRUE;
             } else {
                 echo "Error: " . $sql . "<br />" . mysqli_error($this->connection_id);
@@ -309,7 +313,7 @@ class Database {
          $sql = $this->db_delete($table);
          if(isset($sql)) {
             if (mysqli_query($this->connection_id, $sql)) {
-                echo "New record deleted successfully";
+                //echo "New record deleted successfully";
                 return TRUE;
             } else {
                 echo "Error: " . $sql . "<br />" . mysqli_error($this->connection_id);
