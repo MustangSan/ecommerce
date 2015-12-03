@@ -25,6 +25,11 @@ class Logout extends TS_Controller {
    public function index(){
       $this->session->destroySession();
       $base_url = BASEURL.'login';
+
+      header("Location: " . $base_url);
+      /* Make sure that code below does not get executed when we redirect. */
+      exit;
+      /*
       $ch = curl_init();
 
       // set URL and other appropriate options
@@ -36,6 +41,7 @@ class Logout extends TS_Controller {
 
       // close cURL resource, and free up system resources
       curl_close($ch);
+      //*/
    }
 
 }

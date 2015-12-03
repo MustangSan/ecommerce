@@ -92,7 +92,9 @@ class TheShadow
          echo '</pre>';
          //*/
       }
-   
+   }
+
+   public function base_url(){
+      return ;
    }
 }
-

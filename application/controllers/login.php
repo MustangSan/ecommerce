@@ -32,8 +32,8 @@ class Login extends TS_Controller {
          $this->index();
       else{
          $session->setUserdata($_POST);
-         $data['email'] = $_POST['email'];
-         $data['senha'] = $_POST['senha'];
+         //$data['email'] = $_POST['email'];
+         //$data['senha'] = $_POST['senha'];
          $this->load_view("testes/sucesso");
       }
    }
@@ -42,10 +42,11 @@ class Login extends TS_Controller {
       if(empty($_POST))
          $this->load_view('login');
       else{
-         $data['email'] = $_POST['email'];
-         $data['senha'] = $_POST['senha'];
-         $data['nome'] = $_POST['nome'];
-         $this->load_view("testes/sucesso", $data);
+         //$data['email'] = $_POST['email'];
+         //$data['senha'] = $_POST['senha'];
+         //$data['nome'] = $_POST['nome'];
+         $session->setUserdata($_POST);
+         $this->load_view("testes/sucesso");
       }
    }
 

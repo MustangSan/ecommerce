@@ -23,7 +23,6 @@
    }*/
 
    require_once BASEPATH . 'core/TheShadowClass.php';
+   $theShadow = new TheShadow();
    require_once BASEPATH . 'core/Controller.php';
    require_once BASEPATH . 'core/Model.php';
-
-   $theShadow = new TheShadow();

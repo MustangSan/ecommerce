@@ -10,6 +10,7 @@
 class TS_Controller {
 
    public $model;
+   public static $session;
 
    function __construct () {
       $this->model = array();
@@ -26,7 +27,7 @@ class TS_Controller {
          require_once $helper_path;
       }
       
-      return new Session();
+      $session = new Session();
    }   
 
    public function load_library($library = FALSE){
