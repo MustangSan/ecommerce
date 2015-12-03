@@ -34,7 +34,10 @@ echo "<p>Result: </p>";
 $result = $testConnection->get('administradores');
 //print_r($result);
 //echo "<br />";
-
+print_r($result);
+$cont = count($result);
+echo '<br />'.$cont.'<br />';
+echo $result[0]->email;
 if(is_array($result)) {
    echo "<table border=1 cellspacing=0 cellpadding=4>
             <tr>
@@ -62,8 +65,8 @@ if(is_array($result)) {
 echo "<br /><p>Insert into BD</p>";
 $data = array( 'idAdministrador' => NULL,
                'email' => 'guilherme.raminho@gmail.com',
-               'nome' => 'Guilherme Raminho',
-               'senha' => 'auhsuahs908039jaijs03');
+               'senha' => 'auhsuahs908039jaijs03',
+               'nome' => 'Guilherme Raminho' );
 
 if($testConnection->insert('administradores', $data)) {
    echo "<p>WORK!! insert</p>";

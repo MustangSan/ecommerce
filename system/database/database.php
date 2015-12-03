@@ -38,7 +38,8 @@ class Database {
     * Construtor Padrão
     */
    function __construct() {
-      include (BASEPATH."database/config.php");
+      //include (BASEPATH."/database/config.php");
+      include_once ("system/database/config.php");
       $this->host = $db_config["host"];
       $this->username = $db_config["username"];
       $this->password = $db_config["password"];

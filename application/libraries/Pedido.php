@@ -67,5 +67,14 @@ class Pedido {
    public function getCliente() {
       return $this->cliente;
    }
+
+
+   public function dateENtoPT() {
+
+   }
+
+   public function datePTtoEN() {
+
+   }
                      
 }
