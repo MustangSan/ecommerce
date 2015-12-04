@@ -168,6 +168,9 @@ class Database {
          $sql = $this->insert_string($table, $data);
          if(isset($sql)) {
             if (mysqli_query($this->connection_id, $sql)) {
+                //$sql = "SELECT LAST_INSERT_ID()";
+                //$id = mysqli_insert_id($this->connection_id);
+
                 //echo "New record created successfully";
                 return TRUE;
             } else {
@@ -182,6 +185,10 @@ class Database {
       else {
          return FALSE;
       }
+   }
+
+   public function last_insert_id(){
+      return mysqli_insert_id($this->connection_id);
    }
 
    //--------------------------------------------------------------------------------------------------

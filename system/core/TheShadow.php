@@ -12,7 +12,7 @@
    }
 
    /*function __autoload($class_name) {
-      $file = APPPATH . '/controllers/' . $class_name . '.php';
+      $file = APPPATH . 'libraries/' . $class_name . '.php';
 
       if ( ! file_exists( $file ) ) {
          //echo "dont Exist";
@@ -20,9 +20,10 @@
          return;
       }
       require_once $file;
-   }*/
+   }//*/
 
    require_once BASEPATH . 'core/TheShadowClass.php';
-   $theShadow = new TheShadow();
    require_once BASEPATH . 'core/Controller.php';
    require_once BASEPATH . 'core/Model.php';
+
+   $theShadow = new TheShadow();

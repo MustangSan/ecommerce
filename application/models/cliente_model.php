@@ -14,13 +14,13 @@
 class Cliente_model extends TS_Model {
    
    function __construct() {
-      parant::__construct();
+      parent::__construct();
       $this->load_database();
       $this->db->connect();
    }
 
    public function inserirCliente($cliente) {
-      if(isset($data) AND $data instanceof Cliente) {
+      if(isset($cliente) AND $cliente instanceof Cliente) {
          $dadosCliente = array('idCliente' => $cliente->getIdCliente(),
                                'email'     => $cliente->getEmail(),
                                'senha'     => $cliente->getSenha(),
@@ -29,9 +29,11 @@ class Cliente_model extends TS_Model {
                                'telefone'  => $cliente->getTelefone(),
                                'celular'   => $cliente->getCelular()
                               );
-         $resultCliente = $this->db->inset('clientes', $dadosCliente);
+         $resultCliente = $this->db->insert('clientes', $dadosCliente);
+         $idCliente = $this->db->last_insert_id();
 
          $endereco = $cliente->getEndereco();
+         $endereco->setIdCliente($idCliente);
          if(isset($endereco) AND $endereco instanceof Endereco AND $resultCliente === TRUE) {
             $dadosEndereco = array('idEndereco'  => $endereco->getIdEndereco(),
                                    'idCliente'   => $endereco->getIdCliente(),
@@ -39,14 +41,15 @@ class Cliente_model extends TS_Model {
                                    'numero'      => $endereco->getNumero(),
                                    'complemento' => $endereco->getComplemento(),
                                    'bairro'      => $endereco->getBairro(),
+                                   'cidade'      => $endereco->getCidade(),
                                    'estado'      => $endereco->getEstado(),
                                    'cep'         => $endereco->getCEP(),
                                    'principal'   => $endereco->getPrincipal()
                                     );
-            $resultEndereco = $this->db->inset('enderecos', $dadosEndereco);
+            $resultEndereco = $this->db->insert('enderecos', $dadosEndereco);
             $this->db->close();
             
-            if($resultCliente === TRUE AND $resultEndereco === TRUE)
+            if($resultEndereco === TRUE)
                return TRUE;
             return FALSE;
          }
@@ -56,7 +59,7 @@ class Cliente_model extends TS_Model {
    }
 
    public function editarCliente($cliente) {
-      if(isset($data) AND $data instanceof Cliente) {
+      if(isset($cliente) AND $cliente instanceof Cliente) {
          $dadosCliente = array('idCliente' => $cliente->getIdCliente(),
                                'email'     => $cliente->getEmail(),
                                'senha'     => $cliente->getSenha(),
@@ -76,22 +79,6 @@ class Cliente_model extends TS_Model {
       return FALSE;
    }
 
-   /*public function removerCliente($idCliente) {
-      if(isset($idCliente)) {
-         $this->db->where('idCliente', $idCliente)
-         $this->db->delete('enderecos');
-
-         $this->db->where('idCliente', $idCliente)
-         $resultCliente = $this->db->delete('clientes');
-      }
-
-      $this->db->close();
-      
-      if($resultCliente === TRUE)
-         return TRUE;
-      return FALSE;
-   }*/
-
    public function inserirEndereco($endereco) {
       if(isset($endereco) AND $endereco instanceof Endereco) {
          $dadosEndereco = array('idEndereco'  => $endereco->getIdEndereco(),
@@ -100,11 +87,12 @@ class Cliente_model extends TS_Model {
                                 'numero'      => $endereco->getNumero(),
                                 'complemento' => $endereco->getComplemento(),
                                 'bairro'      => $endereco->getBairro(),
+                                'cidade'      => $endereco->getCidade(),
                                 'estado'      => $endereco->getEstado(),
                                 'cep'         => $endereco->getCEP(),
                                 'principal'   => $endereco->getPrincipal()
                                  );
-         $resultEndereco = $this->db->inset('enderecos', $dadosEndereco);
+         $resultEndereco = $this->db->insert('enderecos', $dadosEndereco);
          $this->db->close();
          
          if($resultCliente === TRUE)
@@ -122,6 +110,7 @@ class Cliente_model extends TS_Model {
                                 'numero'      => $endereco->getNumero(),
                                 'complemento' => $endereco->getComplemento(),
                                 'bairro'      => $endereco->getBairro(),
+                                'cidade'      => $endereco->getCidade(),
                                 'estado'      => $endereco->getEstado(),
                                 'cep'         => $endereco->getCEP(),
                                 'principal'   => $endereco->getPrincipal()
@@ -137,14 +126,35 @@ class Cliente_model extends TS_Model {
       return FALSE;
    }
 
-   public function getCliente($idCliente) {
+   public function getCliente($idCliente, $endereco = 1) {
       if(isset($idCliente)) {
+         if(!is_null($endereco)) {
+            $this->db->where('idCliente', $idCliente);
+            $this->db->where('principal', $endereco);
+            $queryEndereco = $this->db->get('enderecos');
+            $num_rows_Endereco = count($queryEndereco);
+            if($num_rows_Cliente > 0) {
+               $rowEndereco = $queryEndereco[0];
+               $endereco = new Endereco($row->idEndereco,
+                                        $row->idCliente,
+                                        $row->rua,
+                                        $row->numero,
+                                        $row->complemento,
+                                        $row->bairro,
+                                        $row->cidade,
+                                        $row->estado,
+                                        $row->cep,
+                                        $row->principal
+                                       );
+            }
+         }
+
          $this->db->where('idCliente', $idCliente);
          $query = $this->db->get('clientes');
          $this->db->close();
          
-         $num_rows = count($query);
-         if($num_rows == 0)
+         $num_rows_Cliente = count($query);
+         if($num_rows_Cliente == 0)
             return NULL;
          
          $row = $query[0];
@@ -154,7 +164,8 @@ class Cliente_model extends TS_Model {
                             $row->nome,
                             $row->cpf,
                             $row->telefone,
-                            $row->celular
+                            $row->celular,
+                            $endereco
                            );
       }
    }

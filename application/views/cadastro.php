@@ -1,4 +1,7 @@
-<?php include 'header.php'; ?>
+<?php 
+	$site = BASEURL;
+	include 'header.php'; 
+?>
 
 	<section id="cart_items">
 		<div class="container">
@@ -22,39 +25,39 @@
 
 			<div class="shopper-informations">
 				<div class="row">
-					<div class="col-sm-3">
-						<div class="shopper-info">
-							<p>Informações Pessoais</p>
-							<form>
-								<input type="text" placeholder="Nome Completo">
-								<input type="email" placeholder="E-mail">
-								<input type="password" placeholder="Password">
-								<input type="password" placeholder="Confirm password">
-							</form>
-							<a class="btn btn-primary" href="">Cadastrar</a>
-						</div>
+					<div class="shopper-info">
+					<form method="POST" action="<?php echo $site; ?>cadastro/singUp">
+						<!--div class="col-sm-3">
+							<div class="shopper-info"-->
+								<p>Informações Pessoais</p>
+									<input name="nome" type="text" placeholder="Nome Completo" value="<?php echo $nome; ?>">
+									<input name="email" type="email" placeholder="E-mail" value="<?php echo $email; ?>">
+									<input name="senha" type="password" placeholder="Password" value="<?php echo $senha; ?>">
+									<input name="senhaConf" type="password" placeholder="Confirm password" value="<?php echo $senha; ?>">
+									<input name="cpf" type="text" placeholder="CPF">
+							<!--/div>
+						</div-->
+						<!--div class="col-sm-9 clearfix">
+							<div class="bill-to"-->
+								<p>Endereço</p>
+								<!--div class="form-one"-->
+										<input name="rua" type="text" placeholder="Rua">
+										<input name="numero" type="text" placeholder="Número">
+										<input name="complemento" type="text" placeholder="Complemento">
+										<input name="bairro" type="text" placeholder="Bairro">
+										<input name="cidade" type="text" placeholder="Cidade">
+								<!--/div>
+								<div class="form-two"-->
+										<input name="estado" type="text" placeholder="Estado">
+										<input name="cep" type="text" placeholder="Zip / Postal Code *">
+										<input name="telefone" type="text" placeholder="Telefone">
+										<input name="celular" type="text" placeholder="Celular">
+								<!--/div>
+							</div>
+						</div-->
+						<button type="submit" class="btn btn-default">Cadastrar</button>
+					</form>
 					</div>
-					<div class="col-sm-9 clearfix">
-						<div class="bill-to">
-							<p>Endereço</p>
-							<div class="form-one">
-								<form>
-									<input type="text" placeholder="Endereço">
-									<input type="text" placeholder="Número">
-									<input type="text" placeholder="Complemento">
-									<input type="text" placeholder="Número">
-								</form>
-							</div>
-							<div class="form-two">
-								<form>
-									<input type="text" placeholder="Estado">
-									<input type="text" placeholder="Zip / Postal Code *">
-									<input type="text" placeholder="Telefone">
-									<input type="text" placeholder="Celular">
-								</form>
-							</div>
-						</div>
-					</div>				
 				</div>
 			</div>
 		</div>

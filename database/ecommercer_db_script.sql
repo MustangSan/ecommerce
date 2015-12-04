@@ -117,12 +117,14 @@ ENGINE = InnoDB;
 -- Table `ecommerce_bd`.`estoqueProduto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce_bd`.`estoqueProduto` (
+  `idEstoqueProduto` INT NOT NULL AUTO_INCREMENT,
   `idProduto` INT NOT NULL,
-  `idEstoqueProduto` INT NOT NULL,
   `qtdEstoque` VARCHAR(45) NOT NULL,
   `cor` VARCHAR(45) NOT NULL,
   `numeracao` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idProduto`, `idEstoqueProduto`),
+  `preco` FLOAT NOT NULL,
+  `foto` VARCHAR(150) NOT NULL,
+  PRIMARY KEY (`idEstoqueProduto`, `idProduto`),
   INDEX `fk_estoqueProduto_produtos1_idx` (`idProduto` ASC),
   CONSTRAINT `fk_estoqueProduto_produtos1`
     FOREIGN KEY (`idProduto`)

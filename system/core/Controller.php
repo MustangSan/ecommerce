@@ -10,7 +10,7 @@
 class TS_Controller {
 
    public $model;
-   public static $session;
+   public $session;
 
    function __construct () {
       $this->model = array();
@@ -34,14 +34,15 @@ class TS_Controller {
       if(!$library)
          return FALSE;
       
-      $file_name = strtolower($library);
-      $library_path = APPPATH . 'library/' . $library . '.php';
+      //$file_name = strtolower($library);
+      $library_path = APPPATH . 'libraries/' . $library . '.php';
 
       if(file_exists($library_path)) {
          require_once $library_path;
+         return new $library();
       }
-      
-      return FALSE;
+      else
+         return FALSE;
    }
 
    public function load_model($model = FALSE, $name = NULL) {
@@ -60,8 +61,8 @@ class TS_Controller {
                $this->model[$name] = new $model();
          }
       }
-      
-      return FALSE;
+      else
+         return FALSE;
    }
 
    public function load_view($view = FALSE, $data = NULL) {

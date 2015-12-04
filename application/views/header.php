@@ -1,4 +1,4 @@
-<?php //$base_url = BASEURL . "style/"; ?>
+<?php $base_url = BASEURL; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,22 +7,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Product Details | E-Shopper</title>
-    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../assets/css/prettyPhoto.css" rel="stylesheet">
-    <link href="../../assets/css/price-range.css" rel="stylesheet">
-    <link href="../../assets/css/animate.css" rel="stylesheet">
-	<link href="../../assets/css/main.css" rel="stylesheet">
-	<link href="../../assets/css/responsive.css" rel="stylesheet">
+    <link href="<?php echo $base_url; ?>/assets/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="<?php echo $base_url; ?>/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo $base_url; ?>/assets/css/prettyPhoto.css" rel="stylesheet">
+    <link href="<?php echo $base_url; ?>/assets/css/price-range.css" rel="stylesheet">
+    <link href="<?php echo $base_url; ?>/assets/css/animate.css" rel="stylesheet">
+	<link href="<?php echo $base_url; ?>/assets/css/main.css" rel="stylesheet">
+	<link href="<?php echo $base_url; ?>/assets/css/responsive.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="../../images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../assets/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../assets/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../assets/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../../assets/images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="<?php echo $base_url; ?>/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $base_url; ?>/assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $base_url; ?>/assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $base_url; ?>/assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo $base_url; ?>/assets/images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
 
 <body>
@@ -58,7 +58,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.php"><img src="../../assets/images/home/logo.png" alt="" /></a>
+							<a href="index.php"><img src="<?php echo $base_url; ?>/assets/images/home/logo.png" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">

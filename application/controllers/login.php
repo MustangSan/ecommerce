@@ -13,7 +13,7 @@
 
 class Login extends TS_Controller {
    
-   private $session;
+   //private $session;
 
    /**
    * Construtor
@@ -24,7 +24,7 @@ class Login extends TS_Controller {
    }
 
    public function index(){
-      $this->load_view('login');
+      $this->load_view('product');
    }
 
    public function singIn(){
@@ -37,17 +37,4 @@ class Login extends TS_Controller {
          $this->load_view("testes/sucesso");
       }
    }
-
-   public function singUp(){
-      if(empty($_POST))
-         $this->load_view('login');
-      else{
-         //$data['email'] = $_POST['email'];
-         //$data['senha'] = $_POST['senha'];
-         //$data['nome'] = $_POST['nome'];
-         $session->setUserdata($_POST);
-         $this->load_view("testes/sucesso");
-      }
-   }
-
 }

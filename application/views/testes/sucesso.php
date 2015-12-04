@@ -70,10 +70,25 @@
    <h1>Teste The Shadow</h1>
 
    <div id="body">
-      <p>Dado inserido com total sucesso no banco de dados:</p>
+      <p>Dado inserido: <?php echo $result; ?></p>
       <p><?php if(isset($_SESSION['nome'])) echo $_SESSION['nome']; ?></p>
       <p><?php if(isset($_SESSION['email'])) echo $_SESSION['email']; ?></p>
       <p><?php if(isset($_SESSION['senha'])) echo $_SESSION['senha']; ?></p>
+
+      <h1>Teste</h1>
+      <p>Nome: <?php echo $cliente->getNome(); ?> </p>
+      <p>Email: <?php echo $cliente->getEmail(); ?></p>
+      <p>Senha: <?php echo $cliente->getSenha(); ?></p>
+      <p>CPF: <?php echo $cliente->getCPF(); ?></p>
+      <p>Rua: <?php echo $cliente->getEndereco()->getRua(); ?></p>
+      <p>Numero: <?php echo $cliente->getEndereco()->getNumero(); ?></p>
+      <p>Complemento: <?php echo $cliente->getEndereco()->getComplemento(); ?></p>
+      <p>Bairro: <?php echo $cliente->getEndereco()->getBairro(); ?></p>
+      <p>Cidade: <?php echo $cliente->getEndereco()->getCidade(); ?></p>
+      <p>Estado: <?php echo $cliente->getEndereco()->getEstado(); ?></p>
+      <p>CEP: <?php echo $cliente->getEndereco()->getCEP(); ?></p>
+      <p>Telefone: <?php echo $cliente->getTelefone(); ?></p>
+      <p>Celular: <?php echo $cliente->getCelular(); ?></p>      
    </div>
 
    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>

@@ -3,7 +3,6 @@
 class Produto {
 
    private $idProduto;
-   private $idEstoqueProduto;
    private $nome;
    private $descricao;
    private $marca;
@@ -11,15 +10,11 @@ class Produto {
    private $publico;
    private $fechamento;
    private $adicional;
-   private $qtdEstoque;
-   private $cor;
-   private $numeracao;
+   private $estoqueProdutos;
 
-   function __construct($idProduto, $idEstoqueProduto, $nome, $descricao,
-                        $marca, $material, $publico, $fechamento, 
-                        $adicional, $qtdEstoque, $cor, $numeracao) {
+   function __construct($idProduto, $nome, $descricao, $marca, $material,
+                        $publico, $fechamento, $adicional, $estoqueProdutos) {
       $this->setIdProduto($idProduto);
-      $this->setIdEstoqueProduto($idEstoqueProduto);
       $this->setNome($nome);
       $this->setDescricao($descricao);
       $this->setMarca($marca);
@@ -27,17 +22,11 @@ class Produto {
       $this->setPublico($publico);
       $this->setFechamento($fechamento);
       $this->setAdicional($adicional);
-      $this->setQtdEstoque($qtdEstoque);
-      $this->setCor($cor);
-      $this->setNumeracao($numeracao);
+      $this->setEstoqueProdutos($estoqueProdutos);
    }
 
    public function setIdProduto($newValue) {
       $this->idProduto = $newValue;
-   }
-
-   public function setIdEstoqueProduto($newValue) {
-      $this->idEstoqueProduto = $newValue;
    }
 
    public function setNome($newValue) {
@@ -68,25 +57,13 @@ class Produto {
       $this->adicional = $newValue;
    }
 
-   public function setQtdEstoque($newValue) {
-      $this->qtdEstoque = $newValue;
-   }
-
-   public function setCor($newValue) {
-      $this->cor = $newValue;
-   }
-
-   public function setNumeracao($newValue) {
-      $this->numeracao = $newValue;
+   public function setEstoqueProdutos($newValue) {
+      $this->estoqueProdutos = $newValue;
    }
 
 
    public function getIdProduto() {
       return $this->idProduto;
-   }
-
-   public function getIdEstoqueProduto() {
-      return $this->idEstoqueProduto;
    }
 
    public function getNome() {
@@ -117,15 +94,7 @@ class Produto {
       return $this->adicional;
    }
 
-   public function getQtdEstoque() {
-      return $this->qtdEstoque;
-   }
-
-   public function getCor() {
-      return $this->cor;
-   }
-
-   public function getNumeracao() {
-      return $this->numeracao;
+   public function getEstoqueProdutos() {
+      return $this->estoqueProdutos;
    }
 }

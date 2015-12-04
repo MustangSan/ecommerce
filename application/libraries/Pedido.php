@@ -10,7 +10,7 @@ class Pedido {
    private $cliente;
 
    function __construct($idPedido, $data, $valorTotal, 
-                        $embalagem, $idEndereco, $cliente=NULL;) {
+                        $embalagem, $idEndereco, $cliente=NULL) {
       $this->setIdPedido($idPedido);
       $this->setData($data);
       $this->setValorTotal($valorTotal);
@@ -35,7 +35,7 @@ class Pedido {
       $this->embalagem = $newValue;
    }
 
-   public function setIdPedido($newValue) {
+   public function setIdEndereco($newValue) {
       $this->idPedido = $newValue;
    }
 
@@ -60,7 +60,7 @@ class Pedido {
       return $this->embalagem;
    }
 
-   public function getIdPedido() {
+   public function getIdEndereco() {
       return $this->idPedido;
    }
 

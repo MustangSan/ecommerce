@@ -21,7 +21,13 @@ $testConnection->order_by('senha', 'ASC');
 echo "<p>{$testConnection->order_by_return()}</p>";
 //*/
 
-
+$n = 1;
+if(is_string($n))
+   echo $n." eh uma string";
+elseif(is_integer($n))
+   echo $n." eh um integer";
+else
+   echo $n." nao eh uma string nem integer";
 
 echo "<br /><p>Get from BD</p>";
 //$testConnection->where('email','mustang@gmail.com');
@@ -63,12 +69,31 @@ if(is_array($result)) {
 
 /*
 echo "<br /><p>Insert into BD</p>";
-$data = array( 'idAdministrador' => NULL,
+/*$data = array( 'idAdministrador' => NULL,
                'email' => 'guilherme.raminho@gmail.com',
                'senha' => 'auhsuahs908039jaijs03',
                'nome' => 'Guilherme Raminho' );
+$data = array( 'idAdministrador' => NULL,
+               'email' => 'mustang_san@gmail.com',
+               'senha' => 'auhsuahs908039jaijs03',
+               'nome' => 'Mustang San' );
+$n = $testConnection->insert('administradores', $data);
+$id = $testConnection->last_insert_id();
+echo '<br />n: ';
+print_r($n);
+echo '<br />id: ';
+print_r($id);
+echo '<br />';
 
-if($testConnection->insert('administradores', $data)) {
+if(is_string($n))
+   echo $n." eh uma string";
+elseif(is_integer($n))
+   echo $n." eh um integer";
+else
+   echo $n." nao eh uma string nem integer";
+
+if(empty($n)){
+//if($testConnection->insert('administradores', $data)) {
    echo "<p>WORK!! insert</p>";
 } else
    echo "<p>DONT WORK!! insert</p>";

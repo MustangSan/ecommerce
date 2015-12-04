@@ -1,6 +1,6 @@
 <?php 
 	$site = BASEURL;
-	include 'header.php'; 
+	require 'header.php'; 
 ?>
 	<section id="form"><!--form-->
 		<div class="container">
@@ -8,9 +8,9 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-						<form action="<?php echo $site; ?>test/login" method="POST">
-							<input type="email" name="email" placeholder="Email Address" />
-							<input type="password" name="senha" placeholder="Senha" />
+						<form action="<?php echo $site; ?>login/singIn" method="POST">
+							<input type="email" name="email" placeholder="Email Address" value="<?php if(isset($email)) echo $email; ?>"/>
+							<input type="password" name="senha" placeholder="Senha" value="<?php if(isset($senha)) echo $senha; ?>"/>
 							<button type="submit" class="btn btn-default">Login</button>
 						</form>
 					</div><!--/login form-->
@@ -21,7 +21,7 @@
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
-						<form action="<?php echo $site; ?>test/singUp" method="post">
+						<form action="<?php echo $site; ?>cadastro" method="POST">
 							<input type="text" name="nome" placeholder="Name"/>
 							<input type="email" name="email" placeholder="Email Address" />
 							<input type="password" name="senha" placeholder="Senha" />
@@ -34,4 +34,4 @@
 	</section><!--/form-->
 	
 	
-<?php include 'footer.php'; ?>
+<?php require 'footer.php'; ?>

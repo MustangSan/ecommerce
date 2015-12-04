@@ -9,7 +9,7 @@
 
 class Session {
 
-   public static $userdata = array();
+   public $userdata = array();
 
    function __construct(){
       session_start();
