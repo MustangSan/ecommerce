@@ -10,7 +10,7 @@
 class TS_Controller {
 
    public $model;
-   public $session;
+   public $helper;
 
    function __construct () {
       $this->model = array();
@@ -27,7 +27,7 @@ class TS_Controller {
          require_once $helper_path;
       }
       
-      $session = new Session();
+      $this->helper[$helper] = new Session();
    }   
 
    public function load_library($library = FALSE){
@@ -81,6 +81,14 @@ class TS_Controller {
          //@ob_end_clean();
          //return $buffer;
       }
+   }
+
+   public function redirect($url) {
+      $base_url = BASEURL.$url;
+
+      header("Location: " . $base_url);
+      /* Make sure that code below does not get executed when we redirect. */
+      exit;
    }
 
 }

@@ -11,7 +11,7 @@
       return NULL;
    }
 
-   /*function __autoload($class_name) {
+   function __autoload($class_name) {
       $file = APPPATH . 'libraries/' . $class_name . '.php';
 
       if ( ! file_exists( $file ) ) {

@@ -58,18 +58,24 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.php"><img src="<?php echo $base_url; ?>/assets/images/home/logo.png" alt="" /></a>
+							<a href="<?php echo $base_url; ?>home"><img src="<?php echo $base_url; ?>/assets/images/home/logo.png" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Pesquisar"/>
-						</div>
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
-								<li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li>
+                        <li>Bem Vindo <?php echo (isset($_SESSION['nome'])) ? $_SESSION['nome'] : "Visitante"; ?></li>
+								<!--li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Checkout</a></li-->
+								<li><a href="<?php echo $base_url; ?>home/carrinho"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+								<?php 
+                        if(isset($_SESSION['email'])) { ?>
+                           <li><a href="<?php echo $base_url; ?>perfil"><i class="fa fa-lock"></i> Minha Conta</a></li>
+                           <li><a href="<?php echo $base_url; ?>logout"><i class="fa fa-lock"></i> Logout</a></li>
+                        <?php 
+                        }
+                        else { ?>
+                           <li><a href="<?php echo $base_url; ?>login"><i class="fa fa-lock"></i> Login</a></li>
+                        <?php } ?>
 							</ul>
 						</div>
 					</div>

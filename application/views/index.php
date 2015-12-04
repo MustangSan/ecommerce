@@ -1,6 +1,6 @@
 <?php 
    include 'header.php';
-   //$base_url = BASEURL;
+   $site = BASEURL;
    $base_url = BASEURL."/assets/images/home/";
    //var_dump($produtos);
 ?> 
@@ -30,7 +30,27 @@
                                              }
                                              ?>
                                              <p><?php echo $produto->getNome(); ?></p>
-                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver Produto</a>
+                                             <p><a href="<?php echo $site."home/detalhesProduto/".$produto->getIdProduto()."/".$estoqueProduto->getIdEstoqueProduto(); ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver Produto</a></p>
+                                             <?php
+                                             if($estoqueProduto->getQtdEstoque() > 0) { ?>
+                                                <form method="POST" action="<?php echo $site; ?>home/addCarrinho">
+                                                   <input name="idProduto" type="text" value="<?php echo $produto->getIdProduto(); ?>" hidden="true"/>
+                                                   <input name="idProdutoEstoque" type="text" value="<?php echo $estoqueProduto->getIdEstoqueProduto(); ?>" hidden="true"/>
+                                                   <input name="qtdProduto" type="number" value="1" hidden="true"/>
+                                                   <button type="submit" class="btn btn-fefault cart">
+                                                      <i class="fa fa-shopping-cart"></i>
+                                                      Adicionar ao carrinho
+                                                   </button>
+                                                </form>
+                                             <?php 
+                                                } else {
+                                                      echo 
+                                                      '<button type="submit" class="btn btn-fefault cart">
+                                                         <i class="fa fa-shopping-cart"></i>
+                                                         Adicionar ao carrinho
+                                                      </button>';
+                                                }
+                                             ?>
                                           </div>
                                           <div class="product-overlay">
                                              <div class="overlay-content">
@@ -43,7 +63,27 @@
                                                 }
                                                 ?>
                                                 <p><?php echo $produto->getNome(); ?></p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver Produto</a>
+                                                <p><a href="<?php echo $site."home/detalhesProduto/".$produto->getIdProduto()."/".$estoqueProduto->getIdEstoqueProduto(); ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver Produto</a></p>
+                                                <?php
+                                                if($estoqueProduto->getQtdEstoque() > 0) { ?>
+                                                   <form method="POST" action="<?php echo $site; ?>home/addCarrinho">
+                                                      <input name="idProduto" type="text" value="<?php echo $produto->getIdProduto(); ?>" hidden="true"/>
+                                                      <input name="idProdutoEstoque" type="text" value="<?php echo $estoqueProduto->getIdEstoqueProduto(); ?>" hidden="true"/>
+                                                      <input name="qtdProduto" type="number" value="1" hidden="true"/>
+                                                      <button type="submit" class="btn btn-fefault cart">
+                                                         <i class="fa fa-shopping-cart"></i>
+                                                         Adicionar ao carrinho
+                                                      </button>
+                                                   </form>
+                                                <?php 
+                                                } else {
+                                                      echo 
+                                                      '<button type="submit" class="btn btn-fefault cart">
+                                                         <i class="fa fa-shopping-cart"></i>
+                                                         Adicionar ao carrinho
+                                                      </button>';
+                                                }
+                                                ?>
                                              </div>
                                           </div>
                                     </div>

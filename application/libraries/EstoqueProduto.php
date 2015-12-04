@@ -10,7 +10,6 @@ class EstoqueProduto {
    private $preco;
    private $foto;
 
-
    function __construct($idProduto, $idEstoqueProduto, $qtdEstoque,
                         $cor, $numeracao, $preco, $foto) {
       $this->setIdProduto($idProduto);

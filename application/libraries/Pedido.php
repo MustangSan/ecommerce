@@ -36,7 +36,7 @@ class Pedido {
    }
 
    public function setIdEndereco($newValue) {
-      $this->idPedido = $newValue;
+      $this->idEndereco = $newValue;
    }
 
    public function setCliente($newValue) {
@@ -61,7 +61,7 @@ class Pedido {
    }
 
    public function getIdEndereco() {
-      return $this->idPedido;
+      return $this->idEndereco;
    }
 
    public function getCliente() {

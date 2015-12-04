@@ -9,8 +9,8 @@
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
 						<form action="<?php echo $site; ?>login/singIn" method="POST">
-							<input type="email" name="email" placeholder="Email Address" value="<?php if(isset($email)) echo $email; ?>"/>
-							<input type="password" name="senha" placeholder="Senha" value="<?php if(isset($senha)) echo $senha; ?>"/>
+							<input type="email" name="email" placeholder="Email Address" />
+							<input type="password" name="senha" placeholder="Senha" />
 							<button type="submit" class="btn btn-default">Login</button>
 						</form>
 					</div><!--/login form-->

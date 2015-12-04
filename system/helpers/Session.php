@@ -15,15 +15,18 @@ class Session {
       session_start();
    }
 
-   public function setUserdata($params = array()) {
+   public function setUserdata($params) {
       foreach ($params as $key => $value) {
          $_SESSION[$key] = $value;
       }
       $this->userdata = $_SESSION;
    }
 
-   public function userdata($key){
-      return $this->userdata($key);
+   public function getUserdata($key = NULL){
+      if(is_null($key))
+         return $this->userdata;
+      else
+         return $this->userdata[$key];
    }
 
    public function unsetUserdata(){

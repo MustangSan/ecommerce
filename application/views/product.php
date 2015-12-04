@@ -39,12 +39,16 @@
                         <p><b>Adicionais: </b><?php echo $produto->getAdicional(); ?></p>
                         <p><b>Descrição: </b><?php echo $produto->getDescricao(); ?></p>
                         <span>
+                           <form method="POST" action="<?php echo $site; ?>home/addCarrinho">
+                           <input name="idProduto" type="text" value="<?php echo $produto->getIdProduto(); ?>" hidden="true"/>
+                           <input name="idProdutoEstoque" type="text" value="<?php echo $produto->getEstoqueProdutos()->getIdEstoqueProduto(); ?>" hidden="true"/>
                            <label>Quantity:</label>
-                           <input type="number" value="1" min="1" max="<?php echo $produto->getEstoqueProdutos()->getQtdEstoque(); ?>" />
-                           <button type="button" class="btn btn-fefault cart">
+                           <input name="qtdProduto" type="number" value="1" min="1" max="<?php echo $produto->getEstoqueProdutos()->getQtdEstoque(); ?>" />
+                           <button type="submit" class="btn btn-fefault cart">
                               <i class="fa fa-shopping-cart"></i>
                               Add to cart
                            </button>
+                           </form>
                         </span>
                      </div><!--/product-information-->
                   </div>

@@ -20,21 +20,31 @@ class Login extends TS_Controller {
    */
    function __construct() {
       parent::__construct();
-      $session = $this->load_helper('Session');
+      $this->load_library('Dominio');
+      $this->load_helper('Session');
+      $this->load_model('Cliente_model', 'Cliente');
    }
 
    public function index(){
-      $this->load_view('product');
+      $this->load_view('login');
    }
 
    public function singIn(){
       if(empty($_POST))
          $this->index();
       else{
-         $session->setUserdata($_POST);
-         //$data['email'] = $_POST['email'];
-         //$data['senha'] = $_POST['senha'];
-         $this->load_view("testes/sucesso");
+         $data['email'] = $_POST['email'];
+         $senha = $_POST['senha'];
+         $cliente = $this->model['Cliente']->verificaLogin($data['email'], $senha);
+         //var_dump($cliente);
+         if(!is_bool($cliente)){
+            $data['idCliente'] = $cliente->getIdCliente();
+            $data['nome'] = $cliente->getNome();
+            $this->helper['Session']->setUserdata($data);
+            $this->redirect('home');
+         //var_dump($this->helper['Session']->getUserdata());
+         }
+         $this->redirect('login');
       }
    }
 }

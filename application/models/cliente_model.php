@@ -133,18 +133,18 @@ class Cliente_model extends TS_Model {
             $this->db->where('principal', $endereco);
             $queryEndereco = $this->db->get('enderecos');
             $num_rows_Endereco = count($queryEndereco);
-            if($num_rows_Cliente > 0) {
+            if($num_rows_Endereco > 0) {
                $rowEndereco = $queryEndereco[0];
-               $endereco = new Endereco($row->idEndereco,
-                                        $row->idCliente,
-                                        $row->rua,
-                                        $row->numero,
-                                        $row->complemento,
-                                        $row->bairro,
-                                        $row->cidade,
-                                        $row->estado,
-                                        $row->cep,
-                                        $row->principal
+               $endereco = new Endereco($rowEndereco->idEndereco,
+                                        $rowEndereco->idCliente,
+                                        $rowEndereco->rua,
+                                        $rowEndereco->numero,
+                                        $rowEndereco->complemento,
+                                        $rowEndereco->bairro,
+                                        $rowEndereco->cidade,
+                                        $rowEndereco->estado,
+                                        $rowEndereco->cep,
+                                        $rowEndereco->principal
                                        );
             }
          }
@@ -168,5 +168,34 @@ class Cliente_model extends TS_Model {
                             $endereco
                            );
       }
+   }
+
+   public function verificaLogin($email, $senha=NULL) {
+      $this->db->where('email', $email);
+      if(!is_null($senha))
+        $this->db->where('senha', md5($senha));
+      $query = $this->db->get('clientes');
+      $this->db->close();
+      
+      $num_rows_Cliente = count($query);
+      if($num_rows_Cliente == 1){
+         $row = $query[0];
+         return new Cliente($row->idCliente,
+                            $row->email,
+                            $row->senha,
+                            $row->nome,
+                            $row->cpf,
+                            $row->telefone,
+                            $row->celular,
+                            NULL
+                           );
+      }
+      return FALSE;
+   }
+
+   public function logged() {
+      if(isset($_SESSION['email']))
+         return FALSE;
+      return TRUE;
    }
 }

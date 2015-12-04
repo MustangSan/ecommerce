@@ -53,10 +53,7 @@ class Cadastro extends TS_Controller {
                                 $endereco);
          $result = $this->model['Cliente']->inserirCliente($cliente);
          if($result){
-            $base_url = BASEURL.'login';
-            header("Location: " . $base_url);
-            /* Make sure that code below does not get executed when we redirect. */
-            exit;
+            $this->redirect('login');
          }
          else{
             $this->load_view('404');

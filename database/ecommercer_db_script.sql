@@ -60,8 +60,8 @@ ENGINE = InnoDB;
 -- Table `ecommerce_bd`.`pedidos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce_bd`.`pedidos` (
-  `idPedido` INT NOT NULL,
-  `data` DATE NOT NULL,
+  `idPedido` INT NOT NULL AUTO_INCREMENT,
+  `data` VARCHAR(45) NOT NULL,
   `valorTotal` FLOAT NOT NULL,
   `embalagem` INT(2) NOT NULL DEFAULT 1,
   `idEndereco` INT NOT NULL,
@@ -141,6 +141,8 @@ CREATE TABLE IF NOT EXISTS `ecommerce_bd`.`carrinho` (
   `idPedido` INT NOT NULL,
   `idProduto` INT NOT NULL,
   `idEstoqueProduto` INT NOT NULL,
+  `qtdComprado` INT NOT NULL,
+  `valor` FLOAT NOT NULL,
   PRIMARY KEY (`idPedido`, `idProduto`, `idEstoqueProduto`),
   INDEX `fk_pedidos_has_estoqueProduto_estoqueProduto1_idx` (`idProduto` ASC, `idEstoqueProduto` ASC),
   INDEX `fk_pedidos_has_estoqueProduto_pedidos1_idx` (`idPedido` ASC),
